@@ -98,8 +98,3 @@ Life.prototype.toggleCell = function(x, y) {
         this.universe[x][y] = 1;
     }
 };
-$(function () {
-    var life = new Life();
-
-    window.l = life;
-});
