@@ -1,0 +1,39 @@
+/* line 1, ../../dev/scss/life_game.scss */
+.life_game_title {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* line 8, ../../dev/scss/life_game.scss */
+.universe {
+  display: inline-block;
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
+}
+
+/* line 14, ../../dev/scss/life_game.scss */
+.universeRow {
+  line-height: 10px;
+}
+
+/* line 18, ../../dev/scss/life_game.scss */
+.universeCell {
+  display: inline-block;
+  width: 19px;
+  height: 19px;
+  border-left: 1px solid #000;
+  border-top: 1px solid #000;
+}
+/* line 24, ../../dev/scss/life_game.scss */
+.universeCell.alive {
+  background: #00CA10;
+}
+
+/* line 29, ../../dev/scss/life_game.scss */
+.controls {
+  vertical-align: top;
+  display: inline-block;
+  margin-left: 10px;
+}

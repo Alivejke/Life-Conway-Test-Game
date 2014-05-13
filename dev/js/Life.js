@@ -1,100 +1,167 @@
+
+
 function Life (options) {
-    var defaults = {
-        universeWidth: 10,
-        universeHeight: 10,
-        speed: 1500
-    };
-    
-    this.settings = {};
-    this.universe = [];
-
-    $.extend(this.settings, defaults, options);
-
-    this.init();
-
-    this.universe[5][5] = 1;
-    this.universe[5][4] = 1;
-    this.universe[5][6] = 1;
-
-    this.start();
-}
-
-Life.prototype.cl = function() {
-    var self = this;
-
-    console.table( self.universe );
-};
-
-Life.prototype.init = function() {
-    this.createUniverse();
-};
-
-Life.prototype.createUniverse = function() {
-    for (var x = 0; x < this.settings.universeWidth; x++) {
-        this.universe[x] = [];
-
-        for (var y = 0; y < this.settings.universeHeight; y++) {
-            this.universe[x].push(0);
+    var self = this,
+        defaults = {
+            universeWidth: 50,
+            universeHeight: 30,
+            speed: 150,
+            state: 'stopped'
         };
+
+    init();
+
+    function loglife () {
+        for (var i = 0; i < self.universeMatrix.length; i++) {
+            console.log(self.universeMatrix[i]);
+        };
+        console.log('\n');
+    }
+
+    function init() {
+        self.settings = {};
+
+        self.universe = ko.observableArray();
+
+        $.extend(self.settings, defaults, options);
+
+        createUniverse();
     };
-};
 
-Life.prototype.start = function() {
-    var self = this;
+    function createUniverse() {
+        saveState();
 
-    setTimeout(function() {
-        self.universeOld = $.extend(true, [], self.universe);
+        for (var x = 0; x < self.settings.universeHeight; x++) {
+            self.universe().push(ko.observableArray());
 
-        for (var x = 0; x < self.settings.universeWidth; x++) {
-            for (var y = 0; y < self.settings.universeHeight; y++) {
-                self.checkNeighbours(x, y);
+            for (var y = 0; y < self.settings.universeWidth; y++) {
+                self.universe()[x].push({
+                    x: x,
+                    y: y,
+                    val: ko.observable(0)
+                });
             };
         };
+    };
 
-        self.cl();
-        self.start();
-    }, self.settings.speed);
-};
+    function start() {
+        if(self.settings.state === 'running') return;
+        self.settings.state = 'running';
+
+        gameTick();
+    };
+
+    function gameTick() {
+        self.stopId = setTimeout(function() {
+            saveState();
+
+            for (var x = 0; x < self.settings.universeHeight; x++) {
+                for (var y = 0; y < self.settings.universeWidth; y++) {
+                    checkNeighbours(x, y);
+                };
+            };
+            
+            gameTick();
+        }, self.settings.speed);
+    };
+
+    function saveState() {
+        self.universeMatrix = [];
+
+        for (var i = self.universe().length - 1; i >= 0; i--) {
+            self.universeMatrix[i] = [];
+
+            for (var j = 0; j < self.universe()[i]().length; j++) {
+                self.universeMatrix[i].push( self.universe()[i]()[j].val() );
+            };
+        };
+    };
+
+    function loadState(universeMatrix) {
+        for (var i = self.universe().length - 1; i >= 0; i--) {
+            for (var j = 0; j < self.universe()[i]().length; j++) {
+                self.universe()[i]()[j].val(universeMatrix[i][j]);
+            };
+        };
+    };
+
+    function stop() {
+        if(self.settings.state === 'stopped') return;
+        self.settings.state = 'stopped';
+
+        clearTimeout(self.stopId);
+    };
 
 
-Life.prototype.checkNeighbours = function(x, y) {
-    var aliveNeighbours = 0,
-        neighbours = [],
-        yPrev = y - 1 >= 0  ? y-1 : this.settings.universeWidth - 1,
-        yNext = y + 1 <= this.settings.universeWidth - 1 ? y + 1 : 0,
-        xPrev = x - 1 >= 0 ? x - 1 : this.settings.universeHeight - 1,
-        xNext = x + 1 <= this.settings.universeHeight - 1 ? x + 1 : 0;
+    function checkNeighbours(x, y) {
+        var aliveNeighbours = 0,
+            neighbours = [],
+            yPrev = y - 1 >= 0 ? y - 1 : self.settings.universeWidth - 1,
+            yNext = y + 1 <= self.settings.universeWidth - 1 ? y + 1 : 0,
+            xPrev = x - 1 >= 0  ? x-1 : self.settings.universeHeight - 1,
+            xNext = x + 1 <= self.settings.universeHeight - 1 ? x + 1 : 0;
 
-    neighbours.push(this.universeOld[xPrev][yPrev]);
-    neighbours.push(this.universeOld[xPrev][y]);
-    neighbours.push(this.universeOld[xPrev][yNext]);
-    neighbours.push(this.universeOld[xNext][yPrev]);
-    neighbours.push(this.universeOld[xNext][y]);
-    neighbours.push(this.universeOld[xNext][yNext]);
-    neighbours.push(this.universeOld[x][yPrev]);
-    neighbours.push(this.universeOld[x][yNext]);
+        neighbours.push(self.universeMatrix[xPrev][yPrev]);
+        neighbours.push(self.universeMatrix[xPrev][y]);
+        neighbours.push(self.universeMatrix[xPrev][yNext]);
+        neighbours.push(self.universeMatrix[xNext][yPrev]);
+        neighbours.push(self.universeMatrix[xNext][y]);
+        neighbours.push(self.universeMatrix[xNext][yNext]);
+        neighbours.push(self.universeMatrix[x][yPrev]);
+        neighbours.push(self.universeMatrix[x][yNext]);
 
-    for (var i = 0; i < neighbours.length; i++) {
-        if(neighbours[i]) {
-            aliveNeighbours++;
+        for (var i = 0; i < neighbours.length; i++) {
+            if(neighbours[i]) {
+                aliveNeighbours++;
+            }
+        };
+
+        if(self.universeMatrix[x][y]) {
+            if(aliveNeighbours < 2 || aliveNeighbours > 3) {
+                toggleCell({
+                    val: self.universeMatrix[x][y],
+                    x: x, 
+                    y: y
+                });
+            }
+        } else {
+            if(aliveNeighbours === 3) {
+                toggleCell({
+                    val: self.universeMatrix[x][y],
+                    x: x, 
+                    y: y
+                });;
+            }
         }
     };
 
-    if(this.universeOld[x][y]) {
-        if(aliveNeighbours < 2 || aliveNeighbours > 3) {
-            this.toggleCell(x, y);
+    function toggleCell(cell) {
+        if(cell.val === 1) {
+            self.universe()[cell.x]()[cell.y].val(0);
+        } else {
+            self.universe()[cell.x]()[cell.y].val(1);
         }
-    } else {
-        if(aliveNeighbours === 3) {
-            this.toggleCell(x, y);
-        }
-    }
-};
+    };
 
-Life.prototype.toggleCell = function(x, y) {
-    if(this.universeOld[x][y] === 1) {
-        this.universe[x][y] = 0;
-    } else {
-        this.universe[x][y] = 1;
+    function saveStateToLS () {
+        saveState();
+        locache.set('lifeState', self.universeMatrix);
     }
-};
+
+    function loadStateFromLS () {
+        var universeMatrix = locache.get('lifeState');
+        loadState(universeMatrix);
+    }
+
+    return {
+        start: start,
+        toggleCell: toggleCell,
+        stop: stop,
+        save: saveStateToLS,
+        load: loadStateFromLS,
+        getUniverse: function () {
+            return self.universe;
+        }
+    }
+}
+

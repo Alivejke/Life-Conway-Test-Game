@@ -42,7 +42,7 @@ module.exports = function(grunt) {
         compass: {
             compile: {
                 options: {
-                    sassDir: 'sass',
+                    sassDir: 'scss',
                     cssDir: '../web/css',
                     imagesDir: 'img',
                     fontsDir: 'fonts',
@@ -76,7 +76,7 @@ module.exports = function(grunt) {
             },
 
             compass: {
-                files: ['sass/**/*.sass'],
+                files: ['scss/**/*.scss'],
                 tasks: ['compass'],
                 options: {
                     interrupt: true

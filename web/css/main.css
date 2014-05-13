@@ -1,20 +1,5 @@
-/* http://meyerweb.com/eric/tools/css/reset/
- * v2.0 | 20110126
- * License: none (public domain) */
-/* line 5, ../../dev/sass/reset.sass */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+/* line 1, ../../dev/scss/reset.scss */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -24,36 +9,80 @@ time, mark, audio, video {
 }
 
 /* HTML5 display-role reset for older browsers */
-/* line 26, ../../dev/sass/reset.sass */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+/* line 12, ../../dev/scss/reset.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
   display: block;
 }
 
-/* line 30, ../../dev/sass/reset.sass */
+/* line 16, ../../dev/scss/reset.scss */
 body {
   line-height: 1;
 }
 
-/* line 33, ../../dev/sass/reset.sass */
+/* line 20, ../../dev/scss/reset.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 36, ../../dev/sass/reset.sass */
+/* line 24, ../../dev/scss/reset.scss */
 blockquote, q {
   quotes: none;
 }
 
-/* line 39, ../../dev/sass/reset.sass */
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: "";
+/* line 29, ../../dev/scss/reset.scss */
+blockquote:before, blockquote:after {
+  content: '';
   content: none;
 }
 
-/* line 44, ../../dev/sass/reset.sass */
+/* line 36, ../../dev/scss/reset.scss */
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/* line 42, ../../dev/scss/reset.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+/* line 1, ../../dev/scss/life_game.scss */
+.life_game_title {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* line 8, ../../dev/scss/life_game.scss */
+.universe {
+  display: inline-block;
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
+}
+
+/* line 14, ../../dev/scss/life_game.scss */
+.universeRow {
+  line-height: 10px;
+}
+
+/* line 18, ../../dev/scss/life_game.scss */
+.universeCell {
+  display: inline-block;
+  width: 19px;
+  height: 19px;
+  border-left: 1px solid #000;
+  border-top: 1px solid #000;
+}
+/* line 24, ../../dev/scss/life_game.scss */
+.universeCell.alive {
+  background: #00CA10;
+}
+
+/* line 29, ../../dev/scss/life_game.scss */
+.controls {
+  vertical-align: top;
+  display: inline-block;
+  margin-left: 10px;
 }

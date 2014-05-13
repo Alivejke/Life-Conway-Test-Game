@@ -16,6 +16,26 @@
         <script src="js/main.min.js"></script>
     </head>
     <body>
+        <div id="life_game"> 
+            <h2 class="life_game_title">Conway's Game of Life</h2>
 
+            <div class="universe" data-bind="foreach: { data: universe, as: 'universeRow' }">
+                <div class="universeRow" data-bind="foreach: { data: universeRow, as: 'universeCell' }">
+                    <span class="universeCell" data-bind="
+                        css: { alive: universeCell.val() },
+                        click: $root.toggleCell"></span>
+                </div>
+            </div>
+
+            <div class="controls">
+                <a href="#" class="start" data-bind="click: startGame">Start game</a>
+                <br />
+                <a href="#" class="stop" data-bind="click: stopGame">Stop game</a>
+                <br />
+                <a href="#" class="save" data-bind="click: saveState">Save game</a>
+                <br />
+                <a href="#" class="load" data-bind="click: loadState">Load game</a>
+            </div>
+        </div>
     </body>
 </html>
