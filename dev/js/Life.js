@@ -3,8 +3,8 @@
 function Life (options) {
     var self = this,
         defaults = {
-            universeWidth: 50,
-            universeHeight: 30,
+            universeWidth: 100,
+            universeHeight: 100,
             speed: 150,
             state: 'stopped'
         };

@@ -12,13 +12,15 @@
 }
 
 .universeRow {
-	line-height: 10px;
+	line-height: 0;
+	overflow: hidden;
 }
 
 .universeCell {
-	display: inline-block;
-	width: 19px;
-	height: 19px;
+	display: block;
+	float: left;
+	width: 6px;
+	height: 6px;
 	border-left: 1px solid #000;
 	border-top: 1px solid #000;
 	&.alive {

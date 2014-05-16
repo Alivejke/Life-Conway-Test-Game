@@ -15,23 +15,25 @@
 
 /* line 14, ../../dev/scss/life_game.scss */
 .universeRow {
-  line-height: 10px;
+  line-height: 0;
+  overflow: hidden;
 }
 
-/* line 18, ../../dev/scss/life_game.scss */
+/* line 19, ../../dev/scss/life_game.scss */
 .universeCell {
-  display: inline-block;
-  width: 19px;
-  height: 19px;
+  display: block;
+  float: left;
+  width: 6px;
+  height: 6px;
   border-left: 1px solid #000;
   border-top: 1px solid #000;
 }
-/* line 24, ../../dev/scss/life_game.scss */
+/* line 26, ../../dev/scss/life_game.scss */
 .universeCell.alive {
   background: #00CA10;
 }
 
-/* line 29, ../../dev/scss/life_game.scss */
+/* line 31, ../../dev/scss/life_game.scss */
 .controls {
   vertical-align: top;
   display: inline-block;
