@@ -72,8 +72,8 @@ table {
 .universeCell {
   display: block;
   float: left;
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-left: 1px solid #000;
   border-top: 1px solid #000;
 }
@@ -84,6 +84,13 @@ table {
 
 /* line 31, ../../dev/scss/life_game.scss */
 .controls {
+  vertical-align: top;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+/* line 37, ../../dev/scss/life_game.scss */
+.samples {
   vertical-align: top;
   display: inline-block;
   margin-left: 10px;
