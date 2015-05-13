@@ -26,6 +26,10 @@ function Life (options) {
         $.extend(self.settings, defaults, options);
 
         createUniverse();
+
+        if(self.settings.samples) {
+            loadState(self.settings.samples.gosperGliderGun);
+        }
     };
 
     function createUniverse() {
@@ -159,6 +163,8 @@ function Life (options) {
         stop: stop,
         save: saveStateToLS,
         load: loadStateFromLS,
+        samples: self.settings.samples,
+        applySample: loadState,
         getUniverse: function () {
             return self.universe;
         }

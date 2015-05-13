@@ -19,8 +19,8 @@
 .universeCell {
 	display: block;
 	float: left;
-	width: 6px;
-	height: 6px;
+	width: 8px;
+	height: 8px;
 	border-left: 1px solid #000;
 	border-top: 1px solid #000;
 	&.alive {
@@ -29,6 +29,12 @@
 }
 
 .controls {
+	vertical-align: top;
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.samples {
 	vertical-align: top;
 	display: inline-block;
 	margin-left: 10px;
